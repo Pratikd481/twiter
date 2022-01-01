@@ -32,4 +32,6 @@ Route::group(['middleware' => ['auth:web']], function () {
     Route::post('update-profile', [UserController::class, 'updateProfile'])->name('user.profile.update');
 
     Route::resource('posts', PostController::class)->only(['index', 'store', 'update', 'destroy']);
+
+    Route::get('error', [UserController::class,'technicalIssue'])->name('user.technicalIssue');
 });

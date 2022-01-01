@@ -16,6 +16,9 @@ class BaseRepository implements EloquentRepositoryInterface
 
     public function create(array $attributes)
     {
+        if(isset($attributes['_token'])){
+            unset($attributes['_token']);
+        }
         return $this->model->create($attributes);
     }
 

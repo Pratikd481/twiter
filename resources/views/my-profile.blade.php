@@ -22,26 +22,9 @@
             </ul>
         </div>
     </div>
-    <div class="card">
-
-
-        <div class="card-body">
-            <textarea name="user_activity" placeholder="Share what you've been up to..." class="form-control"></textarea>
-        </div>
-        <div class="card-header publish-twit">
-            <div class="row">
-                <div class="col-sm-6 ">
-                    <img src="https://i.imgur.com/bDLhJiP.jpg" width="50" class="rounded-circle">
-                </div>
-                <div class="col-sm-6 ">
-                    <button class="btn  btn-sm btn-primary float-right publish-btn ">
-                        {{ __('Publish') }}
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </div>
+    {{-- Start post create --}}
+    <x-post-create />
+    {{-- End post create --}}
     <div class="card posts">
         <div class="row">
             <div class="col-md-12">

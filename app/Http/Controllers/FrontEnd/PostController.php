@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Repositories\PostRepositoryInterface;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -33,9 +37,24 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        try {
+
+            $this->postRepository->create($request->all());
+        } catch (\Illuminate\Database\QueryException  $e) {
+
+            //log query exception for now i'm using dd but in production I will
+            Log::error("Post creation error: " . $e->getMessage());
+            return redirect(route('user.technicalIssue'));
+        } catch (Exception $e) {
+
+            Log::error("Post creation error: " . json_encode($e));
+            return redirect(route('user.technicalIssue'));
+        }
+
+        Session::flash('post-create-message', 'Created successfully.');
+        return redirect(route('my.profile'));
     }
 
 

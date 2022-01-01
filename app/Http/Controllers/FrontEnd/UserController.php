@@ -37,4 +37,8 @@ class UserController extends Controller
         return view('explore');
     }
 
+    public function technicalIssue()
+    {
+        return view('technical-issue');
+    }
 }
