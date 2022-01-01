@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FrontEnd\PostController;
+use App\Http\Controllers\FrontEnd\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[LoginController::class,'showLoginForm']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => ['auth:web']], function () {
+
+    Route::get('my-profile', [UserController::class, 'myProfile'])->name('my.profile');
+    Route::get('profile/{user}', [UserController::class, 'profile'])->name('user.profile');
+    Route::get('profiles', [UserController::class, 'profiles'])->name('user.profiles');
+    Route::get('following', [UserController::class, 'folowing'])->name('user.folowing');
+    Route::get('followers', [UserController::class, 'followers'])->name('user.followers');
+    Route::post('update-profile', [UserController::class, 'updateProfile'])->name('user.profile.update');
+
+    Route::resource('posts', PostController::class)->only(['index', 'store', 'update', 'destroy']);
+});

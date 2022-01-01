@@ -47,7 +47,30 @@
 .posts .post-details{
     margin-left: 65px;
 }
+.posts .dropdown{
+    float: right;
+}
 
+.posts .dropdown a{
+    color: inherit;
+    text-decoration: inherit;
+    cursor: pointer;
+}
+
+.following h4{
+    font-weight: 700;
+}
+
+.following a{
+    color: inherit;
+    text-decoration: inherit;
+    cursor: pointer;
+}
+.explore a{
+    color: inherit;
+    text-decoration: inherit;
+    cursor: pointer;
+}
 
 .twit-nav ul{
     list-style: none

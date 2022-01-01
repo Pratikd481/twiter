@@ -6,8 +6,10 @@
                 <div class="card-header publish-twit">
                     <div class="row">
                         <div class="col-sm-6 ">
-                            <img src="https://i.imgur.com/bDLhJiP.jpg" width="30" class="rounded-circle">
-                            <span class="title"> Pratik das </span>
+                            <a href="{{ route('user.profile', ['user' => 'test']) }}">
+                                <img src="https://i.imgur.com/bDLhJiP.jpg" width="30" class="rounded-circle">
+                                <span class="title"> Pratik das </span>
+                            </a>
                         </div>
 
                     </div>
@@ -18,8 +20,10 @@
                 <div class="card-header publish-twit">
                     <div class="row">
                         <div class="col-sm-6 ">
-                            <img src="https://i.imgur.com/bDLhJiP.jpg" width="30" class="rounded-circle">
-                            <span class="title"> Pratik das </span>
+                            <a href="{{ route('user.profile', ['user' => 'test']) }}">
+                                <img src="https://i.imgur.com/bDLhJiP.jpg" width="30" class="rounded-circle">
+                                <span class="title"> Pratik das </span>
+                            </a>
                         </div>
 
                     </div>

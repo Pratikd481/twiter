@@ -10,7 +10,7 @@
         <div class="profile-cover__action bg--img" data-overlay="0.3">
             <button class="btn btn-rounded btn-info">
                 <i class="fa fa-plus"></i>
-                <span>Follow</span>
+                <span>{{ __('Update') }}</span>
             </button>
 
         </div>
@@ -22,14 +22,47 @@
             </ul>
         </div>
     </div>
+    <div class="card">
+
+
+        <div class="card-body">
+            <textarea name="user_activity" placeholder="Share what you've been up to..." class="form-control"></textarea>
+        </div>
+        <div class="card-header publish-twit">
+            <div class="row">
+                <div class="col-sm-6 ">
+                    <img src="https://i.imgur.com/bDLhJiP.jpg" width="50" class="rounded-circle">
+                </div>
+                <div class="col-sm-6 ">
+                    <button class="btn  btn-sm btn-primary float-right publish-btn ">
+                        {{ __('Publish') }}
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
     <div class="card posts">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-8">
                         <span class="image"></span>
                         <img src="https://i.imgur.com/bDLhJiP.jpg" width="50" class="rounded-circle">
                         <span class="title"> Pratik das </span>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" v-pre>
+                                {{ __('Action') }}
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Edit</a>
+                                <a class="dropdown-item" href="#">Delete</a>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -41,4 +42,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($record) {
+            $record->uuid =  Str::uuid();
+        });
+    }
+
+    public function friends()
+    {
+        return $this->belongsToMany('App\Models\User', 'networks', 'followed_by_id', 'following_id');
+    }
 }
