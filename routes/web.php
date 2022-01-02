@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth:web']], function () {
     Route::get('profiles', [UserController::class, 'profiles'])->name('user.profiles');
     Route::get('following', [UserController::class, 'folowing'])->name('user.folowing');
     Route::get('followers', [UserController::class, 'followers'])->name('user.followers');
-    Route::post('update-profile', [UserController::class, 'updateProfile'])->name('user.profile.update');
+    Route::put('follow/{user}', [UserController::class, 'follow'])->name('user.follow');
 
     Route::resource('posts', PostController::class)->only(['index', 'store', 'update', 'destroy']);
 

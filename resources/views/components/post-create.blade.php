@@ -17,7 +17,7 @@
         <div class="card-header publish-twit">
             <div class="row">
                 <div class="col-sm-6 ">
-                    <img src="{{ \Auth::user()->getImage()}}" width="50" class="rounded-circle">
+                    <img src="{{ \Auth::user()->image}}" width="50" class="rounded-circle">
                 </div>
                 <div class="col-sm-6 ">
                     <button class="btn  btn-sm btn-primary float-right publish-btn ">

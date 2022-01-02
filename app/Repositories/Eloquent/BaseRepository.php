@@ -70,7 +70,11 @@ class BaseRepository implements EloquentRepositoryInterface
     public function setPagination($input)
     {
         if (isset($input['perpage'])) {
-            $this->perpage = $input['perpage'];
+            if ($input['perpage'] > 100) {
+                $this->perpage = 100;
+            } else {
+                $this->perpage = $input['perpage'];
+            }
         }
 
         if (isset($input['page'])) {

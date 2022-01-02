@@ -8,7 +8,7 @@
                         <div class="row">
                             <div class="col-sm-6 ">
                                 <a href="{{ route('user.profile', ['user' => $user->uuid]) }}">
-                                    <img src="{{ $user->getImage()}}" width="30" class="rounded-circle">
+                                    <img src="{{ $user->image}}" width="30" class="rounded-circle">
                                     <span class="title">{{ $user->name}} </span>
                                 </a>
                             </div>

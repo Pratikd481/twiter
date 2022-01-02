@@ -9,6 +9,7 @@ use App\Repositories\UserRepositoryInterface;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -25,10 +26,9 @@ class UserController extends Controller
     public function profile(Request $request, $id)
     {
         try {
-            $profile_data = $this->userRepository->profileDataByUserId($id);
+            $user =  $this->userRepository->findByUuid($id);
+            $profile_data = $this->userRepository->profileDataByUserId($user->id);
             $posts = $this->userRepository->postByUser($request->all(), $profile_data->id);
-
-            $perPage = $this->userRepository->getPerPage();
         } catch (EntityNotFoundException $e) {
             return view('entity-not-found');
         } catch (Exception $e) {
@@ -53,24 +53,69 @@ class UserController extends Controller
         return view('profile', ['posts' => $posts, 'profile_data' => $profile_data]);
     }
 
-    public function updateProfile()
+
+    public function profiles(Request $request)
     {
-        return view('update-profile');
+
+        try {
+            $users = $this->userRepository->profiles($request->all());
+            $perPage = $this->userRepository->getPerPage();
+        } catch (Exception $e) {
+            Log::error("Error while fething postsr: " . json_encode($e));
+            return redirect(route('user.technicalIssue'));
+        }
+        return view('explore', ['explore_users' => $users]);
     }
 
-    public function profiles()
+    public function folowing(Request $request)
     {
-        return view('explore');
+        try {
+            $users = $this->userRepository->followingList($request->all());
+            $perPage = $this->userRepository->getPerPage();
+        } catch (Exception $e) {
+            Log::error("Error while fething postsr: " . json_encode($e));
+            return redirect(route('user.technicalIssue'));
+        }
+
+        return view('explore', ['explore_users' => $users]);
     }
 
-    public function folowing()
+    public function followers(Request $request)
     {
-        return view('explore');
+        try {
+            $users = $this->userRepository->followerList($request->all());
+            $perPage = $this->userRepository->getPerPage();
+        } catch (Exception $e) {
+            Log::error("Error while fething postsr: " . json_encode($e));
+            return redirect(route('user.technicalIssue'));
+        }
+        return view('explore', ['explore_users' => $users]);
     }
 
-    public function followers()
+    public function follow($id)
     {
-        return view('explore');
+        try {
+            $user =  $this->userRepository->findByUuid($id);
+            $this->userRepository->follow($user->id);
+        } catch (EntityNotFoundException $e) {
+
+            Log::error("Post update error: " . json_encode($e));
+            return response()->json([
+                'errors' => __('Not updated. Something went wrong.')
+            ], 400);
+        } catch (Exception $e) {
+
+            Log::error("Post update error: " . json_encode($e));
+            return response()->json([
+                'errors' => __('Not updated. Something went wrong.')
+            ], 400);
+        }
+        Session::flash('follow-message', 'Updated successfully.');
+
+        return response()->json([
+            'data' =>  $user->toArray(),
+            'redirect_route' => route('my.profile')
+        ], 201);
     }
 
     public function technicalIssue()

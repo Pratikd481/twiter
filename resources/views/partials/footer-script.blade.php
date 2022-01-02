@@ -46,6 +46,7 @@
             }
         });
     }
+
     $('.post-action .edit').click(function() {
         var route = $(this).data('route');
         $('.posts').each(function(index, element) {

@@ -4,7 +4,7 @@
 
     <div class="panel profile-cover">
         <div class="profile-cover__img">
-            <img src="{{ $profile_data->getImage() }}" alt="" width="80" />
+            <img src="{{ $profile_data->image }}" alt="" width="80" />
             <h3 class="h3">{{ $profile_data->name }}</h3>
         </div>
         <div class="profile-cover__action bg--img" data-overlay="0.3">
@@ -14,10 +14,7 @@
                 <span>{{ __('Update') }}</span>
             </button> --}}
             @else
-                <button class="btn btn-rounded btn-info">
-                    <i class="fa fa-plus"></i>
-                    <span>{{ __('Follow') }}</span>
-                </button>
+                <x-follow-button :user="$profile_data" />
             @endif
 
         </div>

@@ -6,7 +6,7 @@
 
                     <div class="row">
                         <div class="col-md-8">
-                            <img src="{{ $post->user->getImage() }}" width="50" class="rounded-circle">
+                            <img src="{{ $post->user->image }}" width="50" class="rounded-circle">
                             <span class="title"> {{ optional($post->user)->name ?? '' }}</span>
                         </div>
                         @if (\Auth::id() == $post->user->id)
@@ -49,7 +49,7 @@
                         <div class="card-header publish-twit">
                             <div class="row">
                                 <div class="col-sm-6 ">
-                                    <img src="{{ $post->user->getImage() }}" width="50" class="rounded-circle">
+                                    <img src="{{ $post->user->image }}" width="50" class="rounded-circle">
                                 </div>
                                 <div class="col-sm-6 ">
                                     <button class="btn  btn-sm btn-primary float-right publish-btn "  data-route="{{ route('posts.update', ['post' => $post->uuid]) }}">
