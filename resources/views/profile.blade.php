@@ -4,50 +4,67 @@
 
     <div class="panel profile-cover">
         <div class="profile-cover__img">
-            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" />
-            <h3 class="h3">Henry Foster</h3>
+            <img src="{{ $profile_data->getImage() }}" alt="" width="80" />
+            <h3 class="h3">{{ $profile_data->name }}</h3>
         </div>
         <div class="profile-cover__action bg--img" data-overlay="0.3">
-            <button class="btn btn-rounded btn-info">
+            @if (\Auth::id() == $profile_data->id)
+                {{-- <button class="btn btn-rounded btn-info">
                 <i class="fa fa-plus"></i>
-                <span>Follow</span>
-            </button>
+                <span>{{ __('Update') }}</span>
+            </button> --}}
+            @else
+                <button class="btn btn-rounded btn-info">
+                    <i class="fa fa-plus"></i>
+                    <span>{{ __('Follow') }}</span>
+                </button>
+            @endif
 
         </div>
         <div class="profile-cover__info">
             <ul class="nav">
-                <li><strong>26</strong>Posts</li>
-                <li><strong>33</strong>Followers</li>
-                <li><strong>136</strong>Following</li>
+                <li><strong>{{ count($profile_data->posts) }}</strong>Posts</li>
+                <li><strong>{{ count($profile_data->followedBy) }}</strong>Followers</li>
+                <li><strong>{{ count($profile_data->following) }}</strong>Following</li>
             </ul>
         </div>
     </div>
-    <div class="card posts">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="image"></span>
-                        <img src="https://i.imgur.com/bDLhJiP.jpg" width="50" class="rounded-circle">
-                        <span class="title"> Pratik das </span>
-                    </div>
 
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
+    @if (\Auth::id() == $profile_data->id)
+        {{-- Start post create --}}
+        <x-post-create />
+        {{-- End post create --}}
+    @endif
 
-                        <span class="post-details">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore, quaerat. Sapiente
-                            nesciunt, repellendus reiciendis explicabo eligendi fuga laboriosam nisi, assumenda
-                            fugiat suscipit nostrum saepe magni iure. Assumenda velit culpa enim.
-                        </span>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </div>
-    </div>
+    {{-- Start post list --}}
+    <x-posts-list :posts="$posts" />
+    {{-- End post list --}}
 
 @endsection
+
+@push('scripts')
+    <script>
+        $('.posts .publish-btn').click(function() {
+            $(this).prop('disabled', true);
+            $(this).html('Updating..');
+            var route = $(this).data('route');
+            var description = $(this).parents('.update-div').find('.description').val();
+            updateListItem(route, description, $(this));
+        });
+
+        function setValidationError(result, element) {
+            var description_element = $(element).parents('.update-div').find('.description');
+            if (result.errors.description != undefined) {
+                description_element.addClass('is-invalid');
+                description_element.siblings('.invalid-feedback').html(result.errors.description[0]);
+
+            } else {
+                description_element.removeClass('is-invalid');
+                description_element.siblings('.invalid-feedback').html();
+            }
+
+            $(element).prop('disabled', false);
+            $(element).html('Update');
+        }
+    </script>
+@endpush

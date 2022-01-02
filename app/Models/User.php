@@ -45,6 +45,7 @@ class User extends Authenticatable
     ];
 
 
+
     public static function boot()
     {
         parent::boot();
@@ -54,8 +55,27 @@ class User extends Authenticatable
         });
     }
 
-    public function friends()
+    public function following()
     {
-        return $this->belongsToMany('App\Models\User', 'networks', 'followed_by_id', 'following_id');
+        return $this->belongsToMany(User::class, 'networks', 'followed_by_id', 'following_id');
+    }
+
+    public function followedBy()
+    {
+        return $this->belongsToMany(User::class, 'networks', 'following_id', 'followed_by_id');
+    }
+
+    public function getImage()
+    {
+        if ($this->image != NULL && $this->image != '') {
+            return config('constants.profile_image_url') . '/' . $this->image;
+        } else {
+            return config('constants.profile_image_url') . '/profile.jpg';
+        }
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
     }
 }

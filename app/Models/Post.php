@@ -19,4 +19,10 @@ class Post extends Model
             $record->uuid =  Str::uuid();
         });
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
