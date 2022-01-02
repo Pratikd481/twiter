@@ -44,7 +44,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends  = ['image'];
 
 
     public static function boot()
@@ -71,10 +70,10 @@ class User extends Authenticatable
         return (bool)$this->following()->where('following_id', $user->id)->count();
     }
 
-    public function getImageAttribute()
+    public function getImageAttribute($value)
     {
-        if ($this->attributes['image'] != NULL && $this->attributes['image'] != '') {
-            return config('constants.profile_image_url') . '/' . $this->attributes['image'];
+        if ($value != NULL && $value != '') {
+            return config('constants.profile_image_url') . '/' . $value;
         } else {
             return config('constants.profile_image_url') . '/profile.jpg';
         }

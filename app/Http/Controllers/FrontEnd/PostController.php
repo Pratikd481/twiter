@@ -4,7 +4,8 @@ namespace App\Http\Controllers\FrontEnd;
 
 use App\Exceptions\EntityNotFoundException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostRequest;
+use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\PostUpdateRequest;
 use App\Repositories\PostRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use Exception;
@@ -49,7 +50,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PostRequest $request)
+    public function store(PostStoreRequest $request)
     {
         try {
 
@@ -72,7 +73,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PostRequest $request, $id)
+    public function update(PostUpdateRequest $request, $id)
     {
 
         try {
@@ -129,6 +130,6 @@ class PostController extends Controller
                 'deleted' => $dleted
             ],
             'redirect_route' => route('my.profile')
-        ], 201);
+        ], 200);
     }
 }
