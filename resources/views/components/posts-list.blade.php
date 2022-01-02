@@ -6,8 +6,9 @@
 
                     <div class="row">
                         <div class="col-md-8">
+                            <a href="{{ route('user.profile', ['user' => $post->user->uuid]) }}">
                             <img src="{{ $post->user->image }}" width="50" class="rounded-circle">
-                            <span class="title"> {{ optional($post->user)->name ?? '' }}</span>
+                            <span class="title"> {{ optional($post->user)->name ?? '' }}</span></a>
                         </div>
                         @if (\Auth::id() == $post->user->id)
                             <div class="col-md-4 post-action">
