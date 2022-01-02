@@ -14,12 +14,24 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
         parent::__construct($model);
     }
 
+    /**
+     * Create post.
+     *
+     * @param array input from request
+     * @return post
+     */
     public function create($input)
     {
         $input['user_id'] = Auth::id();
         return $this->model->create($input);
     }
 
+    /**
+     * All posts by following user.
+     *
+     * @param array input from request
+     * @return list of posts
+     */
     public function postsOfFollowing($input)
     {
         $auth_user = Auth::user();
@@ -30,7 +42,12 @@ class PostRepository extends BaseRepository implements PostRepositoryInterface
     }
 
 
-
+    /**
+     * Delete post.
+     *
+     * @param int post id
+     * @return list of posts
+     */
     public function delete($id)
     {
         $auth_user = Auth::user();

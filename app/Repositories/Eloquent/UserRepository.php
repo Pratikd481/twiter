@@ -43,7 +43,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function following()
     {
         $auth_user = Auth::user();
-        return $auth_user->following()->orderBy('networks.id','DESC')->limit(10)->get();
+        return $auth_user->following()->orderBy('networks.id', 'DESC')->limit(10)->get();
     }
 
     public function follow($id)

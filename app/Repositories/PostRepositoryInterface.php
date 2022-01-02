@@ -4,5 +4,12 @@ namespace App\Repositories;
 
 interface PostRepositoryInterface
 {
-    public function postsOfFollowing($input);
+
+    /**
+     * All posts by following user.
+     *
+     * @param array input from request
+     * @return list of posts
+     */
+    public function postsOfFollowing(array $input);
 }
